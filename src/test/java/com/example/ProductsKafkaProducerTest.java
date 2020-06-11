@@ -32,6 +32,11 @@ public class ProductsKafkaProducerTest {
   @BeforeEach
   void before(PactVerificationContext context) {
     context.setTarget(new AmpqTestTarget());
+
+    System.out.println("TRAVIS_COMMIT" + System.getenv("TRAVIS_COMMIT"));
+    System.setProperty("pact.provider.version", System.getenv("TRAVIS_COMMIT") == null ? "" : System.getenv("TRAVIS_COMMIT"));
+    System.setProperty("pact.provider.tag", System.getenv("TRAVIS_BRANCH") == null ? "" : System.getenv("TRAVIS_BRANCH"));
+    System.setProperty("pact.verifier.publishResults", System.getenv("PACT_BROKER_PUBLISH_VERIFICATION_RESULTS") == null ? "false" : "true");
   }
 
   @PactVerifyProvider("a product event update")

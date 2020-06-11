@@ -66,15 +66,6 @@ can_i_deploy: .env
 	  --pacticipant ${PACTICIPANT} \
 	  --version ${TRAVIS_COMMIT} \
 	  --to prod
-	@docker run --rm \
-	 --env-file .env \
-	 -e PACT_BROKER_BASE_URL \
-	 -e PACT_BROKER_TOKEN \
-	  pactfoundation/pact-cli:latest \
-	  broker can-i-deploy \
-	  --pacticipant ${PACTICIPANT} \
-	  --version ${TRAVIS_COMMIT} \
-	  --to prod
 
 deploy_app:
 	@echo "Deploying to prod"
