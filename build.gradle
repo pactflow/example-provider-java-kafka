@@ -1,0 +1,57 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+  id "au.com.dius.pact" version "4.1.0"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.kafka:spring-kafka'
+	testCompile 'au.com.dius:pact-jvm-provider-junit5:4.0.10'
+	testCompile 'au.com.dius:pact-jvm-provider-spring:4.0.10'
+
+	runtimeOnly 'com.h2database:h2'
+  compileOnly 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+
+}
+
+test {
+	useJUnitPlatform()
+}
+
+pact {
+
+    broker {
+        pactBrokerUrl = System.getenv('PACT_BROKER_BASE_URL')
+        pactBrokerToken = System.getenv('PACT_BROKER_TOKEN')
+    }
+
+    serviceProviders {
+			"pactflow-example-provider" {
+ 				fromPactBroker {
+        	selectors = latestTags('master') // specify your tags here. You can leave this out to just use the latest pacts
+      	}
+			}
+    }
+}
