@@ -1,6 +1,6 @@
 # Example Java Kafka Producer
 
-[![Build Status](https://travis-ci.com/pactflow/example-provider-springboot.svg?branch=master)](https://travis-ci.com/pactflow/example-provider-springboot)
+[![Build Status](https://travis-ci.com/pactflow/example-provider-java-kafka.svg?token=Kys1s4kjp8EWzwqKWwhy&branch=master)](https://travis-ci.com/pactflow/example-provider-java-kafka)
 
 This is an example of a Node provider that uses Pact, [Pactflow](https://pactflow.io) and Travis CI to ensure that it is compatible with the expectations its consumers have of it.
 
