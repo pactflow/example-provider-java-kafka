@@ -4,7 +4,7 @@ os: linux
 jdk:
 - openjdk11
 script:
-- "./gradlew clean test --debug"
+- "./gradlew clean test"
 env:
   global:
   - PACT_BROKER_BASE_URL=https://dius.pact.dius.com.au
