@@ -21,7 +21,6 @@ configurations {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.kafka:spring-kafka'
 	testCompile 'au.com.dius:pact-jvm-provider-junit5:4.0.10'
 	testCompile 'au.com.dius:pact-jvm-provider-spring:4.0.10'
@@ -32,8 +31,7 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	testImplementation 'org.springframework.kafka:spring-kafka-test'
-
+	implementation 'com.github.javafaker:javafaker:1.0.2'
 }
 
 test {

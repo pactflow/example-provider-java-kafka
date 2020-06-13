@@ -30,4 +30,17 @@ To be able to run some of the commands locally, you will need to export the foll
 ## Usage
 
 * Running tests: `./gradlew clean test`
-* Start a Kafka cluster, and publish events from the producer into the `product` topic: `make start`
+* Start a Kafka cluster, and setup the producer endpoint (enables `POST` to `localhost:8081/products`): `make start`
+* Create a new event (manually):
+
+    ```
+    curl -X POST -H"Content-Type: application/json" localhost:8081/products -d '{
+      "id": "7e54c13c-e28e-41fc-b34d-99de62db4666",
+      "name": "Unbranded Plastic Tuna",
+      "type": "BACON",
+      "event": "UPDATED",
+      "version": "v1"
+    }'
+    ```
+
+To disable test data generation that puts random events onto `product` topic, prefix with `SEND_TEST_EVENTS=false`. e.g. `SEND_TEST_EVENTS=false make start`
