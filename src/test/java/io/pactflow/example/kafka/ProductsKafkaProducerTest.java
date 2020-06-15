@@ -53,7 +53,15 @@ public class ProductsKafkaProducerTest {
   }
 
   @PactVerifyProvider("a product event update")
-  public MessageAndMetadata verifyMessageForOrder() throws JsonProcessingException {
+  public MessageAndMetadata productUpdateEvent() throws JsonProcessingException {
+    ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.UPDATED);
+    Message<String> message = new ProductMessageBuilder().withProduct(product).build();
+
+    return generateMessageAndMetadata(message);
+  }
+
+  @PactVerifyProvider("a product created event")
+  public MessageAndMetadata productCreatedEvent() throws JsonProcessingException {
     ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.CREATED);
     Message<String> message = new ProductMessageBuilder().withProduct(product).build();
 
