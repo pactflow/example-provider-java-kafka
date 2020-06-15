@@ -16,14 +16,9 @@ public class ProductMessageBuilder {
   }
 
   public Message<String> build() throws JsonProcessingException {
-    final Message<String> message = MessageBuilder.withPayload(this.mapper.writeValueAsString(this.product))
-        .setHeader(KafkaHeaders.TOPIC, "products")
-        // .setHeader(KafkaHeaders.MESSAGE_KEY, "999")
-        // .setHeader(KafkaHeaders.PARTITION_ID, 0)
-        // .setHeader("X-Custom-Header", "Sending Custom Header with Spring Kafka")
+    return MessageBuilder.withPayload(this.mapper.writeValueAsString(this.product))
+        .setHeader(KafkaHeaders.TOPIC, "products").setHeader("Content-Type", "application/json; charset=utf-8")
         .build();
-
-    return message;
   }
 
 }
