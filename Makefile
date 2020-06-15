@@ -3,7 +3,7 @@
 
 PACTICIPANT := "pactflow-example-provider-java-kafka"
 WEBHOOK_UUID := "9GS-Z8nSAbUzvJW4xmhdsg"
-TRIGGER_PROVIDER_BUILD_URL := "https://api.travis-ci.com/repo/pactflow%2Fexample-provider-springboot/requests"
+TRIGGER_PROVIDER_BUILD_URL := "https://api.travis-ci.com/repo/pactflow%2Fexample-provider-java-kafka/requests"
 
 # Only deploy from master
 ifeq ($(TRAVIS_BRANCH),master)
