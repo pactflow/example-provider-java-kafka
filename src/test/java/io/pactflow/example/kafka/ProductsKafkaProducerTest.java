@@ -23,17 +23,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
 
-// @Provider("AmqpProvider")
 @Provider("pactflow-example-provider-java-kafka")
-@PactBroker(scheme = "https", host = "${PACT_BROKER_HOST}", tags = { "master", "prod", "latest" }, authentication = @PactBrokerAuth(token = "${PACT_BROKER_TOKEN}"))
-@PactFolder("src/test/resources/amqp_pacts")
+@PactBroker(scheme = "https", host = "${PACT_BROKER_HOST}", tags = { "master", "prod" }, authentication = @PactBrokerAuth(token = "${PACT_BROKER_TOKEN}"))
 public class ProductsKafkaProducerTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductsKafkaProducerTest.class);
 
   @TestTemplate
   @ExtendWith(PactVerificationInvocationContextProvider.class)
   void testTemplate(Pact pact, Interaction interaction, PactVerificationContext context) {
-    LOGGER.info("testTemplate called: " + pact.getProvider().getName() + ", " + interaction);
     context.verifyInteraction();
   }
 
@@ -52,7 +49,7 @@ public class ProductsKafkaProducerTest {
 
   @PactVerifyProvider("a product event update")
   public MessageAndMetadata productUpdateEvent() throws JsonProcessingException {
-    ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.UPDATED);
+    ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.UPDATED, 15.00);
     Message<String> message = new ProductMessageBuilder().withProduct(product).build();
 
     return generateMessageAndMetadata(message);
@@ -60,7 +57,7 @@ public class ProductsKafkaProducerTest {
 
   @PactVerifyProvider("a product created event")
   public MessageAndMetadata productCreatedEvent() throws JsonProcessingException {
-    ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.CREATED);
+    ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.CREATED, 27.00);
     Message<String> message = new ProductMessageBuilder().withProduct(product).build();
 
     return generateMessageAndMetadata(message);

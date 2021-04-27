@@ -24,7 +24,7 @@ public class DummyEventGenerator {
 		if (!System.getenv("SEND_TEST_EVENTS").toLowerCase().equals("false")) {
 			final ProductEvent event = new ProductEvent(faker.internet().uuid(),
 					faker.commerce().productName(),
-					faker.commerce().material(), "v1", faker.options().option(EventType.class));
+					faker.commerce().material(), "v1", faker.options().option(EventType.class), Double.parseDouble(faker.commerce().price()));
 
 			log.info("sending random product event to stream: {}", event);
 			repository.save(event);
