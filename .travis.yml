@@ -11,7 +11,7 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 script:
-- "./gradlew clean test"
+- "./gradlew clean test -i"
 env:
   global:
   - PACT_BROKER_BASE_URL=https://dius.pact.dius.com.au
