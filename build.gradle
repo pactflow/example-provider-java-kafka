@@ -22,9 +22,8 @@ configurations {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.kafka:spring-kafka'
-	testCompile 'au.com.dius:pact-jvm-provider-junit5:4.0.10'
-	testCompile 'au.com.dius:pact-jvm-provider-spring:4.0.10'
-
+	testImplementation 'au.com.dius.pact.provider:junit5:4.1.7'
+	testImplementation 'au.com.dius.pact.provider:spring:4.1.7'
 	runtimeOnly 'com.h2database:h2'
   compileOnly 'org.projectlombok:lombok'
   annotationProcessor 'org.projectlombok:lombok'
