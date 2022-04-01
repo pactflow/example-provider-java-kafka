@@ -1,8 +1,18 @@
 # Example Java Kafka Producer
 
-[![Build Status](https://travis-ci.com/pactflow/example-provider-java-kafka.svg?token=Kys1s4kjp8EWzwqKWwhy&branch=master)](https://travis-ci.com/pactflow/example-provider-java-kafka)
+![Build](https://github.com/pactflow/example-provider-java-kafka/workflows/Build/badge.svg)
 
-This is an example of a Java Spring Boot Kafka Producer that uses Pact, [Pactflow](https://pactflow.io) and Travis CI to ensure that it is compatible with the expectations its consumers have of it.
+[![Can I deploy Status](https://testdemo.pactflow.io/pacticipants/pactflow-example-provider-java-kafka/branches/master/latest-version/can-i-deploy/to-environment/production/badge.svg)](https://testdemo.pactflow.io/overview/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-js-kafka)
+
+[![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-java-kafka/latest/badge.svg)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-java-kafka/latest) (latest pact)
+
+[![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-js-kafka/latest/badge.svg)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-js-kafka/latest) (latest pact)
+
+[![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-java-kafka/latest/prod/badge.svg)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-java-kafka/latest/prod) (prod/prod pact)
+
+[![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-js-kafka/latest/prod/badge.svg)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-js-kafka/latest/prod) (prod/prod pact)
+
+This is an example of a Java Spring Boot Kafka Producer that uses Pact, [Pactflow](https://pactflow.io) and GitHub Actions to ensure that it is compatible with the expectations its consumers have of it.
 
 See the canonical provider example here: https://github.com/pactflow/example-provider
 See also the full [Pactflow CI/CD Workshop](https://github.com/pactflow/ci-cd-workshop) for which this can be substituted in as the "provider".
