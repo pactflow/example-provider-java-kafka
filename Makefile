@@ -52,7 +52,7 @@ test: .env
 ## Deploy tasks
 ## =====================
 
-deploy: can_i_deploy deploy_app tag_as_prod
+deploy: can_i_deploy deploy_app tag_as_prod record_deployment
 
 no_deploy:
 	@echo "Not deploying as not on master branch"
@@ -62,6 +62,9 @@ can_i_deploy: .env
 
 deploy_app:
 	@echo "Deploying to prod"
+
+tag_as_prod: .env
+	@"${PACT_CLI}" broker create-version-tag --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --tag prod
 
 record_deployment:
 	@"${PACT_CLI}" broker record_deployment --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --environment production
