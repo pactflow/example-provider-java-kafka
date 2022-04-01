@@ -52,22 +52,33 @@ test: .env
 ## Deploy tasks
 ## =====================
 
-deploy: can_i_deploy deploy_app tag_as_prod record_deployment
+deploy: deploy_app tag record_deployment
 
 no_deploy:
 	@echo "Not deploying as not on master branch"
 
 can_i_deploy: .env
-	@"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to prod
+	echo "can_i_deploy"
+	@"${PACT_CLI}" broker can-i-deploy \
+	  --pacticipant ${PACTICIPANT} \
+	  --version ${GIT_COMMIT} \
+	  --to-environment production \
+	  --retry-while-unknown 0 \
+	  --retry-interval 10
 
 deploy_app:
 	@echo "Deploying to prod"
 
-tag_as_prod: .env
-	@"${PACT_CLI}" broker create-version-tag --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --tag prod
+tag:
+	@"${PACT_CLI}" broker create-version-tag \
+	  --pacticipant ${PACTICIPANT} \
+	  --version ${GIT_COMMIT} \
+		--auto-create-version \
+	  --tag ${GIT_BRANCH}
 
-record_deployment:
-	@"${PACT_CLI}" broker record_deployment --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --environment production
+
+record_deployment: .env
+	@"${PACT_CLI}" broker record-deployment --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --environment production
 
 ## =====================
 ## Pactflow set up tasks
