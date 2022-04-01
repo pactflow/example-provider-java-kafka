@@ -30,7 +30,7 @@ In the following diagram, we'll be testing the "Event API", a service that publi
 * A pactflow.io account with an valid [API token](https://docs.pactflow.io/docs/getting-started/#configuring-your-api-token)
 
 ### Environment variables
-
+ 
 To be able to run some of the commands locally, you will need to export the following environment variables into your shell:
 
 * `PACT_BROKER_TOKEN`: a valid [API token](https://docs.pactflow.io/docs/getting-started/#configuring-your-api-token) for Pactflow
