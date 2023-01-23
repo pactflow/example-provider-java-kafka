@@ -12,10 +12,10 @@
 
 [![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-js-kafka/latest/master/badge.svg)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-java-kafka/consumer/pactflow-example-consumer-js-kafka/latest/master) (master/master pact)
 
-This is an example of a Java Spring Boot Kafka Producer that uses Pact, [Pactflow](https://pactflow.io) and GitHub Actions to ensure that it is compatible with the expectations its consumers have of it.
+This is an example of a Java Spring Boot Kafka Producer that uses Pact, [PactFlow](https://pactflow.io) and GitHub Actions to ensure that it is compatible with the expectations its consumers have of it.
 
 See the canonical provider example here: https://github.com/pactflow/example-provider
-See also the full [Pactflow CI/CD Workshop](https://github.com/pactflow/ci-cd-workshop) for which this can be substituted in as the "provider".
+See also the full [PactFlow CI/CD Workshop](https://github.com/pactflow/ci-cd-workshop) for which this can be substituted in as the "provider".
 
 In the following diagram, we'll be testing the "Event API", a service that publishes product events to a Kafka stream on the `product` topic.
 
@@ -33,7 +33,7 @@ In the following diagram, we'll be testing the "Event API", a service that publi
  
 To be able to run some of the commands locally, you will need to export the following environment variables into your shell:
 
-* `PACT_BROKER_TOKEN`: a valid [API token](https://docs.pactflow.io/docs/getting-started/#configuring-your-api-token) for Pactflow
+* `PACT_BROKER_TOKEN`: a valid [API token](https://docs.pactflow.io/docs/getting-started/#configuring-your-api-token) for PactFlow
 * `PACT_BROKER_BASE_URL`: a fully qualified domain name with protocol to your pact broker e.g. https://dius.pactflow.io
 * `PACT_BROKER_HOST`: a fully qualified domain name _without_ protocol to your pact broker e.g. dius.pactflow.io
 
