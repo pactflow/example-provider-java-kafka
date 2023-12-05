@@ -4,12 +4,13 @@ import au.com.dius.pact.core.model.Interaction;
 import au.com.dius.pact.core.model.Pact;
 import au.com.dius.pact.provider.MessageAndMetadata;
 import au.com.dius.pact.provider.PactVerifyProvider;
-import au.com.dius.pact.provider.junit5.AmpqTestTarget;
+import au.com.dius.pact.provider.junit5.MessageTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvider;
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
 import au.com.dius.pact.provider.junitsupport.loader.PactBrokerAuth;
+import au.com.dius.pact.provider.junitsupport.loader.SelectorBuilder;
 import au.com.dius.pact.provider.junitsupport.loader.VersionSelector;
 
 import java.util.HashMap;
@@ -25,10 +26,17 @@ import org.springframework.messaging.Message;
 
 @Provider("pactflow-example-provider-java-kafka")
 @PactBroker(scheme = "https", host = "${PACT_BROKER_HOST}",
-        consumerVersionSelectors = {@VersionSelector(tag = "master"), @VersionSelector(tag = "prod")},
         authentication = @PactBrokerAuth(token = "${PACT_BROKER_TOKEN}"))
   public class ProductsKafkaProducerTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductsKafkaProducerTest.class);
+
+      @au.com.dius.pact.provider.junitsupport.loader.PactBrokerConsumerVersionSelectors
+    public static SelectorBuilder consumerVersionSelectors() {
+      // Select Pacts for consumers deployed or released, or on the main branch
+      return new SelectorBuilder()
+        .deployedOrReleased()
+        .mainBranch();
+    }
 
   @TestTemplate
   @ExtendWith(PactVerificationInvocationContextProvider.class)
@@ -38,7 +46,7 @@ import org.springframework.messaging.Message;
 
   @BeforeEach
   void before(PactVerificationContext context) {
-    context.setTarget(new AmpqTestTarget());
+    context.setTarget(new MessageTestTarget());
 
     System.out.println("GIT_COMMIT" + System.getenv("GIT_COMMIT"));
     System.setProperty("pact.provider.version",

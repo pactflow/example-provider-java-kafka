@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 
 @Component
 public class DummyEventGenerator {
