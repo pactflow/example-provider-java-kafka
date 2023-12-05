@@ -46,9 +46,16 @@ pact {
 
     serviceProviders {
 			"pactflow-example-provider" {
- 				fromPactBroker {
-        	selectors = latestTags('master') // specify your tags here. You can leave this out to just use the latest pacts
-      	}
+				fromPactBroker {
+					withSelectors {
+						mainBranch() // (recommended) - Returns the pacts for consumers configured mainBranch property
+						deployedOrReleased() // (recommended) - Returns the pacts for all versions of the consumer that are currently deployed or released and currently supported in any environment.
+						// deployedTo('test') // Normally, this would not be needed, Any versions currently deployed to the specified environment.
+						// deployedTo('test') // Normally, this would not be needed, Any versions currently deployed to the specified environment.
+						// environment('test')  // Normally, this would not be needed, Any versions currently deployed or released and supported in the specified environment.
+						// environment('production')  // Normally, this would not be needed, Any versions currently deployed or released and supported in the specified environment.
+					}
+				}
 			}
     }
 }
