@@ -3,7 +3,6 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'java'
   id "au.com.dius.pact" version "4.6.3"
-//   id "au.com.dius.pact.provider:gradle" version "4.6.3"
 }
 
 group = 'com.example'
@@ -53,10 +52,6 @@ pact {
 				withSelectors {
 						mainBranch() // (recommended) - Returns the pacts for consumers configured mainBranch property
 						deployedOrReleased() // (recommended) - Returns the pacts for all versions of the consumer that are currently deployed or released and currently supported in any environment.
-						// deployedTo('test') // Normally, this would not be needed, Any versions currently deployed to the specified environment.
-						// deployedTo('test') // Normally, this would not be needed, Any versions currently deployed to the specified environment.
-						// environment('test')  // Normally, this would not be needed, Any versions currently deployed or released and supported in the specified environment.
-						// environment('production')  // Normally, this would not be needed, Any versions currently deployed or released and supported in the specified environment.
 					}
 		      	}
 			}

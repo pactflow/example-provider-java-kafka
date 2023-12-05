@@ -25,18 +25,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
 
 @Provider("pactflow-example-provider-java-kafka")
-@PactBroker(scheme = "https", host = "${PACT_BROKER_HOST}",
-        authentication = @PactBrokerAuth(token = "${PACT_BROKER_TOKEN}"))
-  public class ProductsKafkaProducerTest {
+@PactBroker(scheme = "https", host = "${PACT_BROKER_HOST}", authentication = @PactBrokerAuth(token = "${PACT_BROKER_TOKEN}"))
+public class ProductsKafkaProducerTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductsKafkaProducerTest.class);
 
-      @au.com.dius.pact.provider.junitsupport.loader.PactBrokerConsumerVersionSelectors
-    public static SelectorBuilder consumerVersionSelectors() {
-      // Select Pacts for consumers deployed or released, or on the main branch
-      return new SelectorBuilder()
+  @au.com.dius.pact.provider.junitsupport.loader.PactBrokerConsumerVersionSelectors
+  public static SelectorBuilder consumerVersionSelectors() {
+    // Select Pacts for consumers deployed or released, or on the main branch
+    return new SelectorBuilder()
         .deployedOrReleased()
         .mainBranch();
-    }
+  }
 
   @TestTemplate
   @ExtendWith(PactVerificationInvocationContextProvider.class)
