@@ -29,7 +29,7 @@ fake_ci: .env
 	CI=true \
 	GIT_COMMIT=`git rev-parse --short HEAD`+`date +%s` \
 	GIT_BRANCH=`git rev-parse --abbrev-ref HEAD` \
-	PACT_BROKER_PUBLISH_VERIFICATION_RESULTS=false \
+	PACT_BROKER_PUBLISH_VERIFICATION_RESULTS=true \
 	make ci
 
 ci_webhook: .env
