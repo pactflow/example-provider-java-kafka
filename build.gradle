@@ -1,13 +1,15 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.18'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
 	id 'java'
-  id "au.com.dius.pact" version "4.6.3"
+  id "au.com.dius.pact" version "4.6.14"
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+java {
+	sourceCompatibility = '17'
+}
 
 repositories {
 	mavenCentral()
@@ -22,16 +24,16 @@ configurations {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.kafka:spring-kafka'
-	testImplementation 'au.com.dius.pact.provider:junit5:4.6.3'
-	testImplementation 'au.com.dius.pact.provider:spring:4.6.3'
-	testImplementation 'au.com.dius.pact.provider:gradle:4.6.3'
+	testImplementation 'au.com.dius.pact.provider:junit5:4.6.14'
+	testImplementation 'au.com.dius.pact.provider:spring:4.6.14'
+	testImplementation 'au.com.dius.pact.provider:gradle:4.6.14'
 	runtimeOnly 'com.h2database:h2'
   compileOnly 'org.projectlombok:lombok'
   annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-    implementation 'net.datafaker:datafaker:2.0.2'
+    implementation 'net.datafaker:datafaker:2.4.0'
 }
 
 test {
