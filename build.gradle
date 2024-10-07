@@ -38,24 +38,55 @@ dependencies {
 
 test {
 	useJUnitPlatform()
-	testLogging.showStandardStreams = true // output pact verification logs to stdout
+
+	// These properties need to be set on the test JVM process
+	//https://docs.pact.io/implementation_guides/jvm/provider/junit#using-java-system-properties
+
+
+	// required variables for fetching dynamic pacts, & publishing verification results
+	// used for fetching dynamic pacts
+	systemProperty("pactbroker.providerBranch", System.getenv("GIT_BRANCH") == null ? "" : System.getenv("GIT_BRANCH"))
+	// used for publishing verification results
+	systemProperty("pact.provider.branch", System.getenv("GIT_BRANCH") == null ? "" : System.getenv("GIT_BRANCH"))
+	systemProperty("pact.provider.version", System.getenv("GIT_COMMIT") == null ? "" : System.getenv("GIT_COMMIT"))
+	
+	// only publish verification results from CI allowing developers to run tests locally and debug, without affecting broker results
+	// only verification results from a known source (such at a commit in a VCS and a reproducible environment such as CI) should be published
+	systemProperty("pact.verifier.publishResults", System.getenv("PACT_BROKER_PUBLISH_VERIFICATION_RESULTS") == null ? "false" : "true")
+	
+	// Consumer version selectors for dynamically fetching pacts
+	// https://docs.pact.io/implementation_guides/jvm/provider/junit#selecting-the-pacts-to-verify-with-consumer-version-selectors-4314
+	// Runs when the provider code changes
+	systemProperty("pactbroker.consumerversionselectors.rawjson", "[{\"mainBranch\":true},{\"deployedOrReleased\":true},{\"matchingBranch\":true}]")
+	// Allow just the changed pact triggered by webhook, to be verified, ignoring the consumer version selectors above
+	// https://docs.pact.io/implementation_guides/jvm/provider/junit#allowing-just-the-changed-pact-specified-in-a-webhook-to-be-verified-406
+	// Runs when the consumer contract changes
+	systemProperty("pact.filter.pacturl", System.getenv("PACT_URL") == null ? null : System.getenv("PACT_URL"))
+	systemProperty("pact.filter.consumers", System.getenv("PACT_URL") == null ? null : System.getenv("PACT_URL").split("/consumer/")[1])
+
+	// pending pacts
+	systemProperty("pactbroker.enablePending", true)
+
+	// work in progress pacts
+	systemProperty("pactbroker.includeWipPactsSince", java.time.LocalDate.now().minusMonths(6).format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")))
 }
 
-pact {
+// pact {
 
-    broker {
-        pactBrokerUrl = System.getenv('PACT_BROKER_BASE_URL')
-        pactBrokerToken = System.getenv('PACT_BROKER_TOKEN')
-    }
+//     broker {
+//         pactBrokerUrl = System.getenv('PACT_BROKER_BASE_URL')
+//         pactBrokerToken = System.getenv('PACT_BROKER_TOKEN')
+//     }
 
-    serviceProviders {
-			"pactflow-example-provider" {
- 				fromPactBroker {
-				withSelectors {
-						mainBranch() // (recommended) - Returns the pacts for consumers configured mainBranch property
-						deployedOrReleased() // (recommended) - Returns the pacts for all versions of the consumer that are currently deployed or released and currently supported in any environment.
-					}
-		      	}
-			}
-    }
-}
+//     serviceProviders {
+// 			"pactflow-example-provider" {
+//  				fromPactBroker {
+// 				withSelectors {
+// 						mainBranch() // (recommended) - Returns the pacts for consumers configured mainBranch property
+// 						deployedOrReleased() // (recommended) - Returns the pacts for all versions of the consumer that are currently deployed or released and currently supported in any environment.
+// 						matchingBranch()
+// 					}
+// 		      	}
+// 			}
+//     }
+// }

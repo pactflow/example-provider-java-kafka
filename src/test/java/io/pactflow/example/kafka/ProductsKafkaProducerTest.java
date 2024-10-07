@@ -28,14 +28,6 @@ import org.springframework.messaging.Message;
 public class ProductsKafkaProducerTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductsKafkaProducerTest.class);
 
-  @au.com.dius.pact.provider.junitsupport.loader.PactBrokerConsumerVersionSelectors
-  public static SelectorBuilder consumerVersionSelectors() {
-    // Select Pacts for consumers deployed or released, or on the main branch
-    return new SelectorBuilder()
-        .deployedOrReleased()
-        .mainBranch();
-  }
-
   @TestTemplate
   @ExtendWith(PactVerificationInvocationContextProvider.class)
   void testTemplate(Pact pact, Interaction interaction, PactVerificationContext context) {
@@ -45,14 +37,6 @@ public class ProductsKafkaProducerTest {
   @BeforeEach
   void before(PactVerificationContext context) {
     context.setTarget(new MessageTestTarget());
-
-    System.out.println("GIT_COMMIT" + System.getenv("GIT_COMMIT"));
-    System.setProperty("pact.provider.version",
-        System.getenv("GIT_COMMIT") == null ? "" : System.getenv("GIT_COMMIT"));
-    System.setProperty("pact.provider.tag",
-        System.getenv("GIT_BRANCH") == null ? "" : System.getenv("GIT_BRANCH"));
-    System.setProperty("pact.verifier.publishResults",
-        System.getenv("PACT_BROKER_PUBLISH_VERIFICATION_RESULTS") == null ? "false" : "true");
   }
 
   @PactVerifyProvider("a product event update")
