@@ -7,6 +7,7 @@ import au.com.dius.pact.provider.PactVerifyProvider;
 import au.com.dius.pact.provider.junit5.MessageTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvider;
+import au.com.dius.pact.provider.junitsupport.AllowOverridePactUrl;
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
 import au.com.dius.pact.provider.junitsupport.loader.PactBrokerAuth;
@@ -24,17 +25,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
 
 @Provider("pactflow-example-provider-java-kafka")
+@AllowOverridePactUrl
 @PactBroker(scheme = "https", host = "${PACT_BROKER_HOST}", authentication = @PactBrokerAuth(token = "${PACT_BROKER_TOKEN}"))
 public class ProductsKafkaProducerTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductsKafkaProducerTest.class);
-
-  @au.com.dius.pact.provider.junitsupport.loader.PactBrokerConsumerVersionSelectors
-  public static SelectorBuilder consumerVersionSelectors() {
-    // Select Pacts for consumers deployed or released, or on the main branch
-    return new SelectorBuilder()
-        .deployedOrReleased()
-        .mainBranch();
-  }
 
   @TestTemplate
   @ExtendWith(PactVerificationInvocationContextProvider.class)
@@ -45,14 +39,6 @@ public class ProductsKafkaProducerTest {
   @BeforeEach
   void before(PactVerificationContext context) {
     context.setTarget(new MessageTestTarget());
-
-    System.out.println("GIT_COMMIT" + System.getenv("GIT_COMMIT"));
-    System.setProperty("pact.provider.version",
-        System.getenv("GIT_COMMIT") == null ? "" : System.getenv("GIT_COMMIT"));
-    System.setProperty("pact.provider.tag",
-        System.getenv("GIT_BRANCH") == null ? "" : System.getenv("GIT_BRANCH"));
-    System.setProperty("pact.verifier.publishResults",
-        System.getenv("PACT_BROKER_PUBLISH_VERIFICATION_RESULTS") == null ? "false" : "true");
   }
 
   @PactVerifyProvider("a product event update")
