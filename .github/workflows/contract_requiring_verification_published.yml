@@ -18,7 +18,7 @@ env:
   PACT_BROKER_TOKEN: ${{ secrets.PACTFLOW_TOKEN_FOR_CI_CD_WORKSHOP }}
   PACT_BROKER_PUBLISH_VERIFICATION_RESULTS: true
   PACT_BROKER_HOST: test.pactflow.io # For pact-jvm
-  PACT_URL: ${{ github.event.client_payload.pact_url }}
+  PACT_URL: ${{ github.event.inputs.PACT_URL || github.event.client_payload.pact_url }}
   GIT_COMMIT: ${{ github.event.client_payload.sha }}
   GIT_BRANCH: ${{ github.event.client_payload.branch }}
   DESCRIPTION: ${{ github.event.client_payload.message }}
