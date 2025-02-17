@@ -26,7 +26,7 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 	testImplementation 'au.com.dius.pact.provider:junit5:4.6.14'
 	testImplementation 'au.com.dius.pact.provider:spring:4.6.14'
-	testImplementation 'au.com.dius.pact.provider:gradle:4.6.14'
+	testImplementation 'au.com.dius.pact.provider:gradle:4.6.17'
 	runtimeOnly 'com.h2database:h2'
   compileOnly 'org.projectlombok:lombok'
   annotationProcessor 'org.projectlombok:lombok'
