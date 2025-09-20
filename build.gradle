@@ -33,7 +33,7 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-    implementation 'net.datafaker:datafaker:2.4.4'
+    implementation 'net.datafaker:datafaker:2.5.0'
 }
 
 test {
