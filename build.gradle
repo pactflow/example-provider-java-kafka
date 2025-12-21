@@ -24,7 +24,7 @@ configurations {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.kafka:spring-kafka'
-	testImplementation 'au.com.dius.pact.provider:junit5:4.6.18'
+	testImplementation 'au.com.dius.pact.provider:junit5:4.6.19'
 	testImplementation 'au.com.dius.pact.provider:spring:4.6.18'
 	testImplementation 'au.com.dius.pact.provider:gradle:4.6.18'
 	runtimeOnly 'com.h2database:h2'
