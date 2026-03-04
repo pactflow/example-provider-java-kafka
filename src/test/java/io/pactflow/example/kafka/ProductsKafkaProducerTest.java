@@ -15,7 +15,7 @@ import au.com.dius.pact.provider.junitsupport.loader.SelectorBuilder;
 
 import java.util.HashMap;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import tools.jackson.core.JacksonException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestTemplate;
@@ -42,7 +42,7 @@ public class ProductsKafkaProducerTest {
   }
 
   @PactVerifyProvider("a product event update")
-  public MessageAndMetadata productUpdateEvent() throws JsonProcessingException {
+  public MessageAndMetadata productUpdateEvent() throws JacksonException {
     ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.UPDATED, 15.00);
     Message<String> message = new ProductMessageBuilder().withProduct(product).build();
 
@@ -50,7 +50,7 @@ public class ProductsKafkaProducerTest {
   }
 
   @PactVerifyProvider("a product created event")
-  public MessageAndMetadata productCreatedEvent() throws JsonProcessingException {
+  public MessageAndMetadata productCreatedEvent() throws JacksonException {
     ProductEvent product = new ProductEvent("id1", "product name", "product type", "v1", EventType.CREATED, 27.00);
     Message<String> message = new ProductMessageBuilder().withProduct(product).build();
 
