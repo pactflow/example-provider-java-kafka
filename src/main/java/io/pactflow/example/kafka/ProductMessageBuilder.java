@@ -1,8 +1,8 @@
 package io.pactflow.example.kafka;
 
 import org.springframework.messaging.Message;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 
@@ -15,7 +15,7 @@ public class ProductMessageBuilder {
     return this;
   }
 
-  public Message<String> build() throws JsonProcessingException {
+  public Message<String> build() throws JacksonException {
     return MessageBuilder.withPayload(this.mapper.writeValueAsString(this.product))
         .setHeader(KafkaHeaders.TOPIC, "products").setHeader("Content-Type", "application/json; charset=utf-8")
         .build();

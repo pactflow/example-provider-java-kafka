@@ -1,6 +1,6 @@
 package io.pactflow.example.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import tools.jackson.core.JacksonException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ class ProductRepository {
       Message<String> message = new ProductMessageBuilder().withProduct(product).build();
       this.template.send(message);
 
-    } catch (final JsonProcessingException e) {
+    } catch (final JacksonException e) {
       logger.error("unable to serialise product to JSON", e);
     }
   }
